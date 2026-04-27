@@ -1,0 +1,123 @@
+package es.ua.eps.filmoteca
+
+import android.util.Log
+
+object FilmDataSource {
+
+    private const val TAG = "FilmDataSource"
+
+    private fun posterOrDefault(tryRes: Int): Int =
+        runCatching { tryRes }.getOrElse { R.drawable.ic_launcher_foreground }
+
+    val films: MutableList<Film> = mutableListOf(
+        Film(
+            imageResId = posterOrDefault(R.drawable.poster_back_to_the_future),
+            title = "Regreso al futuro",
+            director = "Robert Zemeckis",
+            year = 1985,
+            genre = Film.GENRE_SCIFI,
+            format = Film.FORMAT_ONLINE,
+            imdbUrl = "https://www.imdb.com/title/tt0088763/"
+        ),
+        Film(
+            imageResId = posterOrDefault(R.drawable.poster_blade_runner),
+            title = "Blade Runner",
+            director = "Ridley Scott",
+            year = 1982,
+            genre = Film.GENRE_SCIFI,
+            format = Film.FORMAT_BLURAY,
+            imdbUrl = "https://www.imdb.com/title/tt0083658/"
+        ),
+        Film(
+            imageResId = posterOrDefault(R.drawable.poster_matrix),
+            title = "The Matrix",
+            director = "Lana & Lilly Wachowski",
+            year = 1999,
+            genre = Film.GENRE_SCIFI,
+            format = Film.FORMAT_DVD,
+            imdbUrl = "https://www.imdb.com/title/tt0133093/"
+        ),
+        Film(
+            imageResId = posterOrDefault(R.drawable.poster_godfather),
+            title = "El Padrino",
+            director = "Francis Ford Coppola",
+            year = 1972,
+            genre = Film.GENRE_DRAMA,
+            format = Film.FORMAT_BLURAY,
+            imdbUrl = "https://www.imdb.com/title/tt0068646/"
+        ),
+        Film(
+            imageResId = posterOrDefault(R.drawable.poster_toy_story),
+            title = "Toy Story",
+            director = "John Lasseter",
+            year = 1995,
+            genre = Film.GENRE_COMEDY,
+            format = Film.FORMAT_ONLINE,
+            imdbUrl = "https://www.imdb.com/title/tt0114709/"
+        )
+    )
+
+    fun addOrUpdateFilm(
+        title: String,
+        director: String = "Desconocido",
+        year: Int = 2024,
+        genre: Int = Film.GENRE_SCIFI,
+        format: Int = Film.FORMAT_ONLINE,
+        imdbUrl: String? = null,
+        imageResId: Int = R.drawable.ic_launcher_foreground,
+        comments: String? = "Película recibida mediante Firebase Cloud Messaging"
+    ): Boolean {
+        val cleanTitle = title.trim()
+        if (cleanTitle.isBlank()) return false
+
+        val existing = films.firstOrNull {
+            it.title?.equals(cleanTitle, ignoreCase = true) == true
+        }
+
+        return if (existing != null) {
+            existing.director = director
+            existing.year = year
+            existing.genre = genre
+            existing.format = format
+            existing.imdbUrl = imdbUrl
+            existing.imageResId = imageResId
+            existing.comments = comments
+
+            Log.d(TAG, "Película actualizada: $cleanTitle")
+            false
+        } else {
+            films.add(
+                Film(
+                    title = cleanTitle,
+                    director = director,
+                    year = year,
+                    genre = genre,
+                    format = format,
+                    imdbUrl = imdbUrl,
+                    imageResId = imageResId,
+                    comments = comments
+                )
+            )
+
+            Log.d(TAG, "Película añadida: $cleanTitle")
+            true
+        }
+    }
+
+    fun deleteFilmByTitle(title: String): Boolean {
+        val cleanTitle = title.trim()
+        if (cleanTitle.isBlank()) return false
+
+        val removed = films.removeAll {
+            it.title?.equals(cleanTitle, ignoreCase = true) == true
+        }
+
+        if (removed) {
+            Log.d(TAG, "Película eliminada: $cleanTitle")
+        } else {
+            Log.d(TAG, "Película no encontrada para eliminar: $cleanTitle")
+        }
+
+        return removed
+    }
+}

@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Film Library</string>
+    <string name="desc_poster">Movie poster</string>
+
+    <string name="sample_title">Sample title</string>
+    <string name="sample_director">Directed by: Ridley Scott</string>
+    <string name="sample_year_genre_format">Year: 1982 • Genre: Sci-Fi • Format: Blu-ray</string>
+    <string name="sample_imdb">https://www.imdb.com/title/tt0083658/</string>
+    <string name="label_notes">Notes</string>
+    <string name="sample_notes">Sample notes about the movie.</string>
+    <string name="btn_imdb">View on IMDB</string>
+    <string name="directed_by">Directed by: %1$s</string>
+    <string name="year_genre_format">Year: %1$d • Genre: %2$s • Format: %3$s</string>
+
+    <!-- Edit -->
+    <string name="btn_take_photo">Take a photo</string>
+    <string name="btn_pick_image">Pick an image</string>
+    <string name="hint_title">Title</string>
+    <string name="hint_director">Director</string>
+    <string name="hint_year">Release year</string>
+    <string name="hint_imdb">IMDB link</string>
+    <string name="hint_notes">Notes</string>
+
+
+    <string name="btn_guardar">Save</string>
+
+</resources>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Filmoteca – Navegación"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="12dp" />
+
+        <Button
+            android:id="@+id/btnAbout"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Ir a AboutActivity" />
+
+        <View android:layout_width="match_parent" android:layout_height="12dp" />
+
+        <Button
+            android:id="@+id/btnListaXml"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Ir a Lista (XML/Recycler)" />
+
+        <View android:layout_width="match_parent" android:layout_height="12dp" />
+
+        <Button
+            android:id="@+id/btnListaCompose"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Ir a Lista (Compose)" />
+
+        <View android:layout_width="match_parent" android:layout_height="12dp" />
+
+        <!-- Ej.1: Detalle (XML) -->
+        <Button
+            android:id="@+id/btnDetailXml"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Abrir Detalle (XML)" />
+
+        <View android:layout_width="match_parent" android:layout_height="12dp" />
+
+        <!-- Ej.2: Edición (XML) -->
+        <Button
+            android:id="@+id/btnEditXml"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Abrir Edición (XML)" />
+
+        <View android:layout_width="match_parent" android:layout_height="12dp" />
+
+        <!-- Ej.4: Detalle (Compose) -->
+        <Button
+            android:id="@+id/btnDetailCompose"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Abrir Detalle (Compose)" />
+
+        <View android:layout_width="match_parent" android:layout_height="12dp" />
+
+        <!-- Ej.4: Edición (Compose) -->
+        <Button
+            android:id="@+id/btnEditCompose"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Abrir Edición (Compose)" />
+
+    </LinearLayout>
+</ScrollView>

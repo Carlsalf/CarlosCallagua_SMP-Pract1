@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Filmoteca</string>
+    <string name="autor_texto">Creada por Carlos Alfredo Callagua Llaque</string>
+    <string name="btn_web">Ir al sitio web</string>
+    <string name="btn_soporte">Obtener soporte</string>
+    <string name="btn_volver">Volver</string>
+    <string name="toast_pendiente">Funcionalidad sin implementar</string>
+
+    <string name="btn_guardar">Guardar</string>
+
+</resources>

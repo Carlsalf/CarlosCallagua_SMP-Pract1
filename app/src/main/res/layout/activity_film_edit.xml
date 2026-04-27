@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fillViewport="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Fila 1: Imagen + Botones -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/imgPosterEdit"
+                android:layout_width="100dp"
+                android:layout_height="140dp"
+                android:contentDescription="@string/desc_poster"
+                android:scaleType="centerCrop"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="12dp">
+
+                <Button
+                    android:id="@+id/btnTakePhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_take_photo" />
+
+                <Button
+                    android:id="@+id/btnPickImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/btn_pick_image" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Título -->
+        <EditText
+            android:id="@+id/edtTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_title"
+            android:layout_marginTop="12dp"
+            tools:ignore="Autofill" />
+
+        <!-- Director -->
+        <EditText
+            android:id="@+id/edtDirector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_director"
+            android:layout_marginTop="8dp"
+            tools:ignore="Autofill" />
+
+        <!-- Año (numérico) -->
+        <EditText
+            android:id="@+id/edtYear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_year"
+            android:inputType="number"
+            android:layout_marginTop="8dp"
+            tools:ignore="Autofill" />
+
+        <!-- Género -->
+        <Spinner
+            android:id="@+id/spnGenre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/genres"
+            android:prompt="@string/prompt_genre"
+            android:layout_marginTop="8dp" />
+
+        <!-- Formato -->
+        <Spinner
+            android:id="@+id/spnFormat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/formats"
+            android:prompt="@string/prompt_format"
+            android:layout_marginTop="8dp" />
+
+        <!-- Enlace IMDB -->
+        <EditText
+            android:id="@+id/edtImdb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_imdb"
+            android:inputType="textUri"
+            android:layout_marginTop="8dp"
+            tools:ignore="Autofill" />
+
+        <!-- Notas -->
+        <EditText
+            android:id="@+id/edtNotes"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:hint="@string/hint_notes"
+            android:gravity="top|start"
+            android:inputType="textMultiLine"
+            android:layout_marginTop="8dp"
+            android:overScrollMode="ifContentScrolls"
+            tools:ignore="Autofill" />
+
+        <!-- Guardar -->
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_guardar"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp" />
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,12 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Base.Theme.Filmoteca" parent="Theme.Material3.DayNight">
+
+        <!-- Colores opcionales -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+    </style>
+
+    <style name="Theme.Filmoteca" parent="Base.Theme.Filmoteca" />
+
+</resources>

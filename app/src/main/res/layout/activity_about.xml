@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- Texto del autor -->
+    <TextView
+        android:id="@+id/tvAutor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/autor_texto"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/imgAutor"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:src="@drawable/carlosalfredo"
+        android:contentDescription="@string/autor_texto"
+        app:layout_constraintTop_toBottomOf="@id/tvAutor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:scaleType="centerCrop" />
+
+    <!-- Botón: Ir al sitio web -->
+    <Button
+        android:id="@+id/btnWeb"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_web"
+        app:layout_constraintTop_toBottomOf="@id/imgAutor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp" />
+
+    <!-- Botón: Obtener soporte -->
+    <Button
+        android:id="@+id/btnSoporte"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_soporte"
+        app:layout_constraintTop_toBottomOf="@id/btnWeb"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp" />
+
+    <!-- Botón: Volver -->
+    <Button
+        android:id="@+id/btnVolver"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_volver"
+        app:layout_constraintTop_toBottomOf="@id/btnSoporte"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

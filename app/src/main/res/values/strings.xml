@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App -->
+    <string name="app_name">Filmoteca</string>
+    <string name="menu_add_film">Añadir película</string>
+    <string name="menu_about">Acerca de</string>
+    <string name="menu_delete_selected">Borrar seleccionadas</string>
+
+
+    <!-- About -->
+    <string name="autor_texto">Creada por Carlos Alfredo Callagua Llaque</string>
+    <string name="btn_web">Ir al sitio web</string>
+    <string name="btn_soporte">Obtener soporte</string>
+    <string name="btn_volver">Volver</string>
+    <string name="toast_pendiente">Funcionalidad sin implementar</string>
+
+    <!-- Detalle / Edición -->
+    <string name="desc_poster">Cartel de la película</string>
+    <string name="btn_imdb">Ver en IMDB</string>
+    <string name="label_notes">Notas</string>
+    <string name="directed_by">Dirigida por: %1$s</string>
+    <string name="year_genre_format">Año: %1$d • Género: %2$s • Formato: %3$s</string>
+
+    <!-- Prompts de los Spinners -->
+    <string name="prompt_genre">Selecciona género</string>
+    <string name="prompt_format">Selecciona formato</string>
+
+    <!-- Hints -->
+    <string name="btn_take_photo">Tomar una fotografía</string>
+    <string name="btn_pick_image">Seleccionar una imagen</string>
+    <string name="hint_title">Título</string>
+    <string name="hint_director">Director</string>
+    <string name="hint_year">Año de estreno</string>
+    <string name="hint_imdb">Enlace a IMDB</string>
+    <string name="hint_notes">Notas</string>
+
+    <!--  CLAVES SAMPLE USADAS EN LOS LAYOUTS (base/por defecto)  -->
+    <string name="sample_title">Título de ejemplo</string>
+    <string name="sample_director">Dirigida por: Ridley Scott</string>
+    <string name="sample_year_genre_format">Año: 1982 • Género: Sci-Fi • Formato: Blu-ray</string>
+    <string name="sample_imdb">https://www.imdb.com/title/tt0083658/</string>
+    <string name="sample_notes">Notas de ejemplo sobre la película.</string>
+
+    <string name="btn_guardar">Guardar</string>
+
+
+</resources>

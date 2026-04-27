@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_about"
+        android:title="Acerca de" />
+
+    <item
+        android:id="@+id/action_web"
+        android:title="Web oficial" />
+
+    <item
+        android:id="@+id/action_share"
+        android:title="Compartir app" />
+
+    <!-- 🔐 NUEVO -->
+    <item
+        android:id="@+id/action_close_session"
+        android:title="Close session" />
+
+    <!-- 🔐 NUEVO -->
+    <item
+        android:id="@+id/action_disconnect_account"
+        android:title="Disconnect account" />
+
+</menu>
