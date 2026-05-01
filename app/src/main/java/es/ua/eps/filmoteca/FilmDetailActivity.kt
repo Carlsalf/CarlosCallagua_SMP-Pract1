@@ -12,7 +12,6 @@ class FilmDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Usa el layout que tengas para el detalle. Cambia si el tuyo es otro.
         setContentView(R.layout.activity_film_data)
 
         val imgPoster: ImageView = findViewById(R.id.imgPoster)
@@ -20,6 +19,7 @@ class FilmDetailActivity : AppCompatActivity() {
         val txtDirector: TextView = findViewById(R.id.txtDirector)
         val txtNotes: TextView = findViewById(R.id.txtNotes)
         val btnImdb: Button = findViewById(R.id.btnImdb)
+        val btnMap: Button = findViewById(R.id.btnMap)
 
         val index = intent.getIntExtra("film_index", -1)
         val film: Film? =
@@ -40,6 +40,7 @@ class FilmDetailActivity : AppCompatActivity() {
 
         val genres = resources.getStringArray(R.array.genres)
         val formats = resources.getStringArray(R.array.formats)
+
         val line1 = getString(R.string.directed_by, directorName)
         val line2 = getString(
             R.string.year_genre_format,
@@ -47,11 +48,26 @@ class FilmDetailActivity : AppCompatActivity() {
             genres.getOrNull(genreIndex) ?: "-",
             formats.getOrNull(formatIndex) ?: "-"
         )
+
         txtDirector.text = "$line1\n$line2"
         txtNotes.text = notes
 
         btnImdb.setOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(imdbUrl)))
+        }
+
+        btnMap.setOnClickListener {
+            val selectedFilm = film ?: return@setOnClickListener
+
+            val intent = Intent(this, FilmMapActivity::class.java).apply {
+                putExtra("title", selectedFilm.title)
+                putExtra("director", selectedFilm.director)
+                putExtra("year", selectedFilm.year)
+                putExtra("latitude", selectedFilm.latitude)
+                putExtra("longitude", selectedFilm.longitude)
+            }
+
+            startActivity(intent)
         }
     }
 }

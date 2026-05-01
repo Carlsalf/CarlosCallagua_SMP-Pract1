@@ -17,7 +17,10 @@ object FilmDataSource {
             year = 1985,
             genre = Film.GENRE_SCIFI,
             format = Film.FORMAT_ONLINE,
-            imdbUrl = "https://www.imdb.com/title/tt0088763/"
+            imdbUrl = "https://www.imdb.com/title/tt0088763/",
+            comments = "Lugar de rodaje: Courthouse Square, Universal Studios.",
+            latitude = 34.1419,
+            longitude = -118.3534
         ),
         Film(
             imageResId = posterOrDefault(R.drawable.poster_blade_runner),
@@ -26,7 +29,10 @@ object FilmDataSource {
             year = 1982,
             genre = Film.GENRE_SCIFI,
             format = Film.FORMAT_BLURAY,
-            imdbUrl = "https://www.imdb.com/title/tt0083658/"
+            imdbUrl = "https://www.imdb.com/title/tt0083658/",
+            comments = "Lugar de rodaje: Los Ángeles.",
+            latitude = 34.0522,
+            longitude = -118.2437
         ),
         Film(
             imageResId = posterOrDefault(R.drawable.poster_matrix),
@@ -35,7 +41,10 @@ object FilmDataSource {
             year = 1999,
             genre = Film.GENRE_SCIFI,
             format = Film.FORMAT_DVD,
-            imdbUrl = "https://www.imdb.com/title/tt0133093/"
+            imdbUrl = "https://www.imdb.com/title/tt0133093/",
+            comments = "Lugar de rodaje: Sídney, Australia.",
+            latitude = -33.8688,
+            longitude = 151.2093
         ),
         Film(
             imageResId = posterOrDefault(R.drawable.poster_godfather),
@@ -44,7 +53,10 @@ object FilmDataSource {
             year = 1972,
             genre = Film.GENRE_DRAMA,
             format = Film.FORMAT_BLURAY,
-            imdbUrl = "https://www.imdb.com/title/tt0068646/"
+            imdbUrl = "https://www.imdb.com/title/tt0068646/",
+            comments = "Lugar de rodaje: Nueva York.",
+            latitude = 40.7128,
+            longitude = -74.0060
         ),
         Film(
             imageResId = posterOrDefault(R.drawable.poster_toy_story),
@@ -53,7 +65,10 @@ object FilmDataSource {
             year = 1995,
             genre = Film.GENRE_COMEDY,
             format = Film.FORMAT_ONLINE,
-            imdbUrl = "https://www.imdb.com/title/tt0114709/"
+            imdbUrl = "https://www.imdb.com/title/tt0114709/",
+            comments = "Lugar de referencia: Pixar Animation Studios.",
+            latitude = 37.8317,
+            longitude = -122.2847
         )
     )
 
@@ -65,7 +80,9 @@ object FilmDataSource {
         format: Int = Film.FORMAT_ONLINE,
         imdbUrl: String? = null,
         imageResId: Int = R.drawable.ic_launcher_foreground,
-        comments: String? = "Película recibida mediante Firebase Cloud Messaging"
+        comments: String? = "Película recibida mediante Firebase Cloud Messaging",
+        latitude: Double = 38.3452,
+        longitude: Double = -0.4810
     ): Boolean {
         val cleanTitle = title.trim()
         if (cleanTitle.isBlank()) return false
@@ -82,6 +99,8 @@ object FilmDataSource {
             existing.imdbUrl = imdbUrl
             existing.imageResId = imageResId
             existing.comments = comments
+            existing.latitude = latitude
+            existing.longitude = longitude
 
             Log.d(TAG, "Película actualizada: $cleanTitle")
             false
@@ -95,7 +114,9 @@ object FilmDataSource {
                     format = format,
                     imdbUrl = imdbUrl,
                     imageResId = imageResId,
-                    comments = comments
+                    comments = comments,
+                    latitude = latitude,
+                    longitude = longitude
                 )
             )
 
