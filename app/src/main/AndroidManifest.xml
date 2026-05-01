@@ -3,7 +3,12 @@
 
     <!-- Red y notificaciones -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- Localización para mapas/geocercas -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <!-- Multimedia API 33+ -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
@@ -22,7 +27,6 @@
         android:name="android.hardware.camera.any"
         android:required="false" />
 
-    <!-- Cámara / galería -->
     <queries>
         <intent>
             <action android:name="android.media.action.IMAGE_CAPTURE" />
@@ -47,6 +51,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Filmoteca">
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBEYPuEgYaLdjwP9EjM0G3KMWyRe57vm5U" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -62,15 +70,10 @@
             android:name=".LoginActivity"
             android:exported="false" />
 
-        <service
-            android:name=".MyFirebaseMessagingService"
-            android:exported="false">
-
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-
-        </service>
+        <activity
+            android:name=".FilmMapActivity"
+            android:label="Mapa de rodaje"
+            android:exported="false" />
 
         <activity
             android:name=".FilmFragmentsActivity"
@@ -89,6 +92,16 @@
         <activity android:name=".FilmListComposeActivity" android:exported="false" />
         <activity android:name=".FilmDetailComposeActivity" android:exported="false" />
         <activity android:name=".FilmEditComposeActivity" android:exported="false" />
+
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="false">
+
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+
+        </service>
 
         <provider
             android:name="androidx.core.content.FileProvider"
