@@ -12,6 +12,9 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <!-- 🔥 CLAVE PARA GEOENCING -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
     <!--  Multimedia API 33+ -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
@@ -54,7 +57,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Filmoteca">
 
-        <!--  Google Maps API KEY (correcto: usando placeholder) -->
+        <!--  Google Maps API KEY -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
@@ -79,6 +82,11 @@
         <activity
             android:name=".FilmMapActivity"
             android:label="Mapa de rodaje"
+            android:exported="false" />
+
+        <!-- 🔥 RECEIVER DE GEOFENCE (CLAVE) -->
+        <receiver
+            android:name=".GeofenceBroadcastReceiver"
             android:exported="false" />
 
         <!--  Fragments -->
