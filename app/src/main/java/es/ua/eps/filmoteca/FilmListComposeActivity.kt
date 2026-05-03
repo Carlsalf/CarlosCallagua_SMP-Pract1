@@ -7,14 +7,26 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -25,7 +37,7 @@ import androidx.compose.ui.unit.dp
 
 class FilmListComposeActivity : ComponentActivity() {
 
-    private var refreshKey by mutableStateOf(0)
+    private var refreshKey by mutableIntStateOf(0)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,24 +47,33 @@ class FilmListComposeActivity : ComponentActivity() {
     override fun onResume() {
         super.onResume()
         refreshKey++
+        render()
     }
 
     private fun render() {
         setContent {
             MaterialTheme {
-                Surface(Modifier.fillMaxSize()) {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
                     FilmList(
                         refreshKey = refreshKey,
                         films = FilmDataSource.films,
                         onClick = { index ->
-                            val i = Intent(this, FilmDataActivity::class.java)
-                            i.putExtra("film_index", index)
-                            startActivity(i)
+                            openFilmDetail(index)
                         }
                     )
                 }
             }
         }
+    }
+
+    private fun openFilmDetail(index: Int) {
+        val intent = Intent(this, FilmDataActivity::class.java).apply {
+            putExtra("film_index", index)
+        }
+        startActivity(intent)
     }
 }
 
@@ -72,7 +93,10 @@ private fun FilmList(
             .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        itemsIndexed(visibleFilms) { index, film ->
+        itemsIndexed(
+            items = visibleFilms,
+            key = { index, film -> "${film.title}-$index" }
+        ) { index, film ->
             FilmRow(
                 film = film,
                 onClick = { onClick(index) }
@@ -98,12 +122,12 @@ private fun FilmRow(
         val poster = if (film.imageResId != 0) {
             film.imageResId
         } else {
-            R.drawable.ic_launcher_foreground
+            R.mipmap.ic_launcher
         }
 
         Image(
             painter = painterResource(poster),
-            contentDescription = film.title ?: "",
+            contentDescription = film.title.ifBlank { "Poster de película" },
             modifier = Modifier
                 .size(64.dp)
                 .clip(RoundedCornerShape(10.dp)),
@@ -112,15 +136,17 @@ private fun FilmRow(
 
         Spacer(Modifier.width(12.dp))
 
-        Column(Modifier.weight(1f)) {
+        Column(
+            modifier = Modifier.weight(1f)
+        ) {
             Text(
-                text = film.title ?: "<Sin título>",
+                text = film.title.ifBlank { "<Sin título>" },
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold
             )
 
             Text(
-                text = film.director ?: "",
+                text = film.director.ifBlank { "Director desconocido" },
                 style = MaterialTheme.typography.bodyMedium
             )
 
@@ -132,5 +158,6 @@ private fun FilmRow(
     }
 }
 
-private fun yearText(year: Int): String =
-    if (year != 0) "$year" else "—"
+private fun yearText(year: Int): String {
+    return if (year != 0) year.toString() else "—"
+}

@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Red y notificaciones -->
+    <!--  Red -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!--  Notificaciones -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
-    <!-- Localización para mapas/geocercas -->
+    <!--  Localización -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-    <!-- Multimedia API 33+ -->
+    <!--  Multimedia API 33+ -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
 
-    <!-- Cámara -->
+    <!--  Cámara -->
     <uses-permission android:name="android.permission.CAMERA" />
 
     <!-- Compatibilidad <= API 32 -->
@@ -27,6 +29,7 @@
         android:name="android.hardware.camera.any"
         android:required="false" />
 
+    <!--  Queries -->
     <queries>
         <intent>
             <action android:name="android.media.action.IMAGE_CAPTURE" />
@@ -51,10 +54,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Filmoteca">
 
+        <!--  Google Maps API KEY (correcto: usando placeholder) -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBEYPuEgYaLdjwP9EjM0G3KMWyRe57vm5U" />
+            android:value="${MAPS_API_KEY}" />
 
+        <!--  Main -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -63,46 +68,51 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
+        <!--  Login -->
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
 
+        <!--  Mapa -->
         <activity
             android:name=".FilmMapActivity"
             android:label="Mapa de rodaje"
             android:exported="false" />
 
+        <!--  Fragments -->
         <activity
             android:name=".FilmFragmentsActivity"
             android:label="Filmoteca (Fragments)"
             android:exported="false" />
 
+        <!--  Otras -->
         <activity android:name=".AboutActivity" android:exported="false" />
         <activity android:name=".FilmDataActivity" android:exported="false" />
         <activity android:name=".FilmEditActivity" android:exported="false" />
         <activity android:name=".FilmDetailActivity" android:exported="false" />
 
+        <!--  Listas -->
         <activity android:name=".FilmListActivity" android:exported="false" />
         <activity android:name=".FilmListCustomActivity" android:exported="false" />
         <activity android:name=".FilmListRvActivity" android:exported="false" />
 
+        <!-- ⚛ Compose -->
         <activity android:name=".FilmListComposeActivity" android:exported="false" />
         <activity android:name=".FilmDetailComposeActivity" android:exported="false" />
         <activity android:name=".FilmEditComposeActivity" android:exported="false" />
 
+        <!--  Firebase -->
         <service
             android:name=".MyFirebaseMessagingService"
             android:exported="false">
-
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-
         </service>
 
+        <!--  FileProvider -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -112,7 +122,6 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
-
         </provider>
 
     </application>

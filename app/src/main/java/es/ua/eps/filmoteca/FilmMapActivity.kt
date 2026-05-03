@@ -1,35 +1,70 @@
 package es.ua.eps.filmoteca
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import androidx.core.app.ActivityCompat
+import com.google.android.gms.location.*
+import com.google.android.gms.maps.*
+import com.google.android.gms.maps.model.*
 
 class FilmMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    private lateinit var googleMap: GoogleMap
+    companion object {
+        private const val TAG = "FilmMapActivity"
 
-    private var filmTitle: String = "Película"
-    private var filmDirector: String = "Director desconocido"
-    private var filmYear: Int = 0
-    private var latitude: Double = 38.3452
-    private var longitude: Double = -0.4810
+        // 🔥 fallback REAL (Los Angeles)
+        private val DEFAULT_LOCATION = LatLng(34.0522, -118.2437)
+    }
+
+    private lateinit var googleMap: GoogleMap
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+    private var filmTitle = "Película"
+    private var filmDirector = "Director"
+    private var filmYear = 0
+
+    private var latitude = 0.0
+    private var longitude = 0.0
+
+    private lateinit var filmPosition: LatLng
+
+    private val requestPermission =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            val granted = permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true ||
+                    permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true
+
+            if (granted) enableLocation()
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_film_map)
 
-        filmTitle = intent.getStringExtra("title") ?: "Película"
-        filmDirector = intent.getStringExtra("director") ?: "Director desconocido"
-        filmYear = intent.getIntExtra("year", 0)
-        latitude = intent.getDoubleExtra("latitude", 38.3452)
-        longitude = intent.getDoubleExtra("longitude", -0.4810)
-
         supportActionBar?.title = "Lugar de rodaje"
+
+        // 🔹 DATA
+        filmTitle = intent.getStringExtra("title") ?: filmTitle
+        filmDirector = intent.getStringExtra("director") ?: filmDirector
+        filmYear = intent.getIntExtra("year", 0)
+
+        latitude = intent.getDoubleExtra("latitude", 0.0)
+        longitude = intent.getDoubleExtra("longitude", 0.0)
+
+        // 🔥 VALIDACIÓN CLAVE
+        filmPosition = if (latitude == 0.0 && longitude == 0.0) {
+            Log.w(TAG, "Coordenadas inválidas → usando fallback")
+            DEFAULT_LOCATION
+        } else {
+            LatLng(latitude, longitude)
+        }
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.mapFilm) as SupportMapFragment
@@ -40,21 +75,70 @@ class FilmMapActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(map: GoogleMap) {
         googleMap = map
 
-        val position = LatLng(latitude, longitude)
+        googleMap.clear()
 
+        // 🔥 FORZAR TIPO MAPA (evita grid)
+        googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+
+        // 🔥 MARCADOR
         googleMap.addMarker(
             MarkerOptions()
-                .position(position)
+                .position(filmPosition)
                 .title(filmTitle)
                 .snippet("$filmDirector - $filmYear")
         )?.showInfoWindow()
 
+        // 🔥 ZOOM SEGURO
         googleMap.moveCamera(
-            CameraUpdateFactory.newLatLngZoom(position, 14f)
+            CameraUpdateFactory.newLatLngZoom(filmPosition, 14f)
         )
 
         googleMap.uiSettings.isZoomControlsEnabled = true
-        googleMap.uiSettings.isCompassEnabled = true
-        googleMap.uiSettings.isMapToolbarEnabled = true
+        googleMap.uiSettings.isMyLocationButtonEnabled = true
+
+        checkPermission()
+    }
+
+    private fun checkPermission() {
+        val granted =
+            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) ==
+                    PackageManager.PERMISSION_GRANTED
+
+        if (granted) enableLocation()
+        else requestPermission.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+        )
+    }
+
+    private fun enableLocation() {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) return
+
+        googleMap.isMyLocationEnabled = true
+
+        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+            location?.let {
+                showBounds(it)
+            }
+        }
+    }
+
+    private fun showBounds(location: Location) {
+        val user = LatLng(location.latitude, location.longitude)
+
+        val bounds = LatLngBounds.builder()
+            .include(filmPosition)
+            .include(user)
+            .build()
+
+        googleMap.animateCamera(
+            CameraUpdateFactory.newLatLngBounds(bounds, 120)
+        )
     }
 }

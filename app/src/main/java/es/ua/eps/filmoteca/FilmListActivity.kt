@@ -51,12 +51,10 @@ class FilmListActivity : AppCompatActivity() {
         listView.adapter = adapter
 
         listView.setOnItemClickListener { _, _, position, _ ->
-            val film = films[position]
-            Toast.makeText(
-                this,
-                "${film.title} (${film.director})",
-                Toast.LENGTH_SHORT
-            ).show()
+            val intent = Intent(this, FilmDataActivity::class.java).apply {
+                putExtra("film_index", position)
+            }
+            startActivity(intent)
         }
 
         listView.choiceMode = ListView.CHOICE_MODE_MULTIPLE_MODAL

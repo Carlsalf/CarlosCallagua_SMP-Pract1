@@ -1,20 +1,26 @@
 package es.ua.eps.filmoteca
 
 data class Film(
-    var imageResId: Int = R.drawable.ic_launcher_foreground,
-    var title: String? = null,
-    var director: String? = null,
+    var imageResId: Int = R.mipmap.ic_launcher,   // fallback más seguro
+    var title: String = "",                       // evitar nulls
+    var director: String = "",
     var year: Int = 0,
     var genre: Int = GENRE_ACTION,
     var format: Int = FORMAT_DVD,
-    var imdbUrl: String? = null,
-    var comments: String? = null,
+    var imdbUrl: String = "",
+    var comments: String = "",
 
-    // Práctica Tema 3 - mapas/localización
+    //  Localización
     var latitude: Double = 0.0,
     var longitude: Double = 0.0,
     var geofenceEnabled: Boolean = false
 ) {
+
+    //  Método útil para validar coordenadas
+    fun hasValidLocation(): Boolean {
+        return latitude != 0.0 && longitude != 0.0
+    }
+
     companion object {
         const val GENRE_ACTION = 0
         const val GENRE_COMEDY = 1

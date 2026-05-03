@@ -12,28 +12,43 @@ class FilmRvAdapter(
     private val onClick: (Int) -> Unit
 ) : RecyclerView.Adapter<FilmRvAdapter.VH>() {
 
-    class VH(itemView: View, private val onClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
+    class VH(
+        itemView: View,
+        private val onClick: (Int) -> Unit
+    ) : RecyclerView.ViewHolder(itemView) {
+
         private val img: ImageView = itemView.findViewById(R.id.imgPosterRow)
         private val title: TextView = itemView.findViewById(R.id.txtTitleRow)
         private val director: TextView = itemView.findViewById(R.id.txtDirectorRow)
 
-        fun bind(film: Film, position: Int) {
-            val poster = if (film.imageResId != 0) film.imageResId else R.mipmap.ic_launcher
-            img.setImageResource(poster)
-            title.text = film.title ?: "<Sin título>"
-            director.text = film.director ?: ""
+        fun bind(film: Film) {
 
-            itemView.setOnClickListener { onClick(position) }
+            img.setImageResource(
+                if (film.imageResId != 0) film.imageResId else R.mipmap.ic_launcher
+            )
+
+            title.text = film.title.ifBlank { "<Sin título>" }
+            director.text = film.director
+
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onClick(position)
+                }
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.item_film_row, parent, false)
-        return VH(v, onClick)
+        val view = LayoutInflater
+            .from(parent.context)
+            .inflate(R.layout.item_film_row, parent, false)
+
+        return VH(view, onClick)
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.bind(items[position], position)
+        holder.bind(items[position])
     }
 
     override fun getItemCount(): Int = items.size

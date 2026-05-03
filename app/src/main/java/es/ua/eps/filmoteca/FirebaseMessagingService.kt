@@ -55,7 +55,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                     year = year,
                     genre = Film.GENRE_SCIFI,
                     format = Film.FORMAT_ONLINE,
-                    imdbUrl = message.data["imdbUrl"],
+                    imdbUrl = message.data["imdbUrl"] ?: "",
                     comments = "Alta recibida por Firebase Cloud Messaging"
                 )
 

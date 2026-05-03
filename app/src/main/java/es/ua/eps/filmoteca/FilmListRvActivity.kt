@@ -13,14 +13,15 @@ class FilmListRvActivity : AppCompatActivity() {
         setContentView(R.layout.activity_film_list_recycler)
 
         val recycler: RecyclerView = findViewById(R.id.recyclerFilms)
+
         recycler.layoutManager = LinearLayoutManager(this)
         recycler.setHasFixedSize(true)
 
-        val adapter = FilmRvAdapter(FilmDataSource.films) { position ->
-            val i = Intent(this, FilmDataActivity::class.java)
-            i.putExtra("film_index", position)
-            startActivity(i)
+        recycler.adapter = FilmRvAdapter(FilmDataSource.films) { position ->
+            val intent = Intent(this, FilmDataActivity::class.java).apply {
+                putExtra("film_index", position)
+            }
+            startActivity(intent)
         }
-        recycler.adapter = adapter
     }
 }
