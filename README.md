@@ -1,86 +1,36 @@
-cat > README.md <<'EOF'
-# CarlosCallagua_SMP-Pract1
+# Filmoteca - Prácticas SMP
 
-## Servicios de las Plataformas Móviles - Práctica 1
+## Práctica 1
+- Listado de películas
+- Detalle
+- Edición básica
+- XML + RecyclerView
 
-Aplicación Android basada en Filmoteca, ampliada con autenticación mediante Google Sign-In y recepción de mensajes mediante Firebase Cloud Messaging.
+-------------------------------
 
-## Funcionalidades implementadas
+## Práctica 2 – Geocercas (SceneKit/Ubicación)
 
-- Inicio de sesión con cuenta de Google.
-- Acceso a datos del usuario autenticado.
-- Pantalla "Acerca de" mostrando nombre y correo del usuario.
-- Menú con opciones:
-  - Close session
-  - Disconnect account
-- Integración con Firebase Cloud Messaging.
-- Recepción de mensajes de datos.
-- Alta de películas mediante FCM.
-- Baja de películas mediante FCM.
-- Notificación visible en el dispositivo/emulador.
-- Apertura de la aplicación desde la notificación.
-- Actualización de la fuente de datos `FilmDataSource`.
+### Funcionalidad implementada:
+- Añadir geocercas a lugares de rodaje
+- Eliminación de geocercas
+- Uso de Geofencing API
+- Notificaciones al entrar en zona
 
-## Firebase Cloud Messaging
+### Archivos clave:
+- GeofenceHelper.kt
+- GeofenceBroadcastReceiver.kt
+- FilmEditActivity.kt
 
-La aplicación recibe mensajes con datos personalizados.
+### Limitaciones:
+- En emulador no se disparan eventos reales
+- Probado mediante simulación de ubicación
 
-### Alta de película
+---
 
-text
-operation = alta
-title = Matrix
-director = Wachowski
-year = 1999
-
-Resultado esperado:
-
-Si la película no existe, se añade.
-Si ya existe, se actualizan sus datos.
-
-Baja de Película
-operation = baja
-title = Matrix
-
-Resultado esperado:
-
-Si la película existe, se elimina.
-Si no existe, no se realiza ninguna acción.
-
-## Archivos principales
-
-MainActivity.kt
-LoginActivity.kt
-AboutActivity.kt
-MyFirebaseMessagingService.kt
-Film.kt
-FilmDataSource.kt
-FilmListActivity.kt
-FilmListComposeActivity.kt
-AndroidManifest.xml
-
-## Tecnologías utilizadas
-Kotlin
-Android SDK
-Firebase Cloud Messaging
-Google Sign-In
-XML Views
-Jetpack Compose
-ViewBinding
-
-## Evidencias de funcionamiento
-
-Durante las pruebas se verificó:
-Data: {title=Matrix, operation=baja}
-Película eliminada: Matrix
-Baja de película: Matrix
-
-y:
-
-Data: {title=Matrix, operation=baja}
-Película eliminada: Matrix
-Baja de película: Matrix
-
-# Autor
-Carlos Alfredo Callagua Llaque
-EOF
+##  Flujo de uso
+1. Abrir edición de película
+2. Guardar película
+3. Pulsar "Añadir geocercado"
+4. Conceder permisos de ubicación
+5. Simular ubicación en emulator
+6. Recibir notificación
